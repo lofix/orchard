@@ -1,0 +1,25 @@
+.ModuleOverview {
+  width: 50%;
+  height: 200px;
+  border: 2px solid #004225;
+  margin: 16px;
+  background-color: #fff;
+}
+
+.Title {
+  font-size: 20px;
+  font-weight: normal;
+  margin-left: 16px;
+  margin-bottom: 16px;
+}
+
+.ContentContainer {
+  display: flex;
+  align-items: center;
+}
+
+.ContentContainer p {
+  width: 70%;
+  margin-left: 16px;
+  margin-right: 8px;
+}

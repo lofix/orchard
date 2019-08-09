@@ -1,0 +1,14 @@
+.Logo {
+  height: 35px;
+  width: 80px;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 4px;
+  color: white;
+  text-transform: uppercase;
+  padding: 4px;
+  line-height: 33px;
+  order: 0;
+  margin-left: 16px;
+  cursor: pointer;
+}
