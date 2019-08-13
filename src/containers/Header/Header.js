@@ -11,7 +11,9 @@ class Header extends Component {
       <header className={modules.Header}>
         <Logo />
         <Button 
-          copy={"LOGIN"} 
+          copy="LOGIN"
+          btnType="Rectangular"
+          colorSet="WhiteGreen"
         />
       </header>
     )

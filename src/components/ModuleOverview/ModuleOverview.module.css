@@ -1,9 +1,10 @@
 .ModuleOverview {
-  width: 50%;
+  width: 40%;
   height: 200px;
   border: 2px solid #004225;
-  margin: 16px;
+  margin: 32px;
   background-color: #fff;
+  box-shadow: 16px 15px 28px -13px rgba(0,0,0,1);
 }
 
 .Title {

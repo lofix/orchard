@@ -1,6 +1,9 @@
 .Logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 35px;
-  width: 80px;
+  width: auto;
   text-align: center;
   border: 2px solid white;
   border-radius: 4px;
@@ -11,4 +14,9 @@
   order: 0;
   margin-left: 16px;
   cursor: pointer;
+  
 }
+
+.Link {
+  text-decoration: none;
+} 
