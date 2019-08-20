@@ -1,54 +1,80 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import EmptyTableInfo from '../../components/EmptyTableInfo/EmptyTableInfo';
 import FruitStorageForm from './FruitStorageForm/FruitStorageForm';
 import Lightbox from '../../components/UI/Lightbox/Lightbox';
 
+import * as actions from '../../store/actions/index';
+
 import modules from './FruitStorage.module.css';
 
 class FruitStorage extends Component {
-  state = {
-    config: {
-      headers: ['#','Date', 'Pallet No', 'ID', 'Weight', 'Variety', 'Sorting Date'],
-      noData: {
-        title: "Currently there are no blueberries in your coldroom.",
-        secondaryTitle: "Click below to add a new pallet!"
-      }
-    },
-    data: null,
-    addingNewItem: false
+  componentWillMount() {
+    this.props.fetchPallets();
+  }
+
+  onBackdropClick = () => {
+    this.props.onAddNewItemFinished();
   }
 
   prepareTableBody() {
-    return <tbody><tr><td>TABLE</td></tr></tbody>;
+    const pallets = this.props.pallets;
+    return (
+      <tbody>
+        {pallets.map(pallet => {
+          return (
+            <tr className={modules.Row}>
+              {Object.keys(pallet).map(info => {
+                return (<td className={modules.Cell}>{pallet[info]}</td>)
+              })}
+            </tr>
+          )
+        })}
+      </tbody>);
   }
 
   addNewItemHandler = () => {
-    this.setState({addingNewItem:true});
+    this.props.onAddNewItemInit();
   }
 
   render() {
+    const tableHeaders = ['Date', 'Pallet No', 'Variety','Weight', 'ID', 'Sorting Date'];
     return (
       <div className={modules.TableContainer}>
         <table className={modules.Table}>
           <thead> 
             <tr className={modules.Row}>
-              {this.state.config.headers.map(headerEl => {
+              {tableHeaders.map(headerEl => {
                 return <th className={modules.Header} key={headerEl}>{headerEl}</th>;
               })}
             </tr>
           </thead>
-            {this.state.data ? this.prepareTableBody() : null}
+            {this.props.pallets.length ? this.prepareTableBody() : null}
         </table>
-        {!this.state.data ? 
+        {!this.props.pallets.length ? 
           <EmptyTableInfo 
-            title={this.state.config.noData.title}
-            secondaryTitle={this.state.config.noData.secondaryTitle}
+            title="Currently there are no blueberries in your coldroom."
+            secondaryTitle="Click below to add a new pallet!"
             addNewItem={this.addNewItemHandler}/> : null}
-        {this.state.addingNewItem ? <Lightbox header={"Fill the form and add a new pallet!"} content={<FruitStorageForm />}/> : null}
+        {this.props.addingNewItem ? <Lightbox clicked={this.onBackdropClick} header={"Fill the form and add a new pallet!"} content={<FruitStorageForm />}/> : null}
       </div>
     )
   }
 }
 
-export default FruitStorage;
+const mapStateToProps = state => {
+  return {
+    pallets: state.fruitStorage.pallets,
+    addingNewItem: state.fruitStorage.addingNewItem     
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddNewItemInit: () => dispatch(actions.addNewItemInit()),
+    onAddNewItemFinished: () => dispatch(actions.addNewItemFinished()),
+    fetchPallets: () => dispatch(actions.fetchPallets())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(FruitStorage);

@@ -7,7 +7,7 @@ import Backdrop from '../Backdrop/Backdrop';
 const lightbox = (props) => {
   return (
     <Auxi>
-      <Backdrop show/>
+      <Backdrop show clicked={props.clicked}/>
       <div className={modules.Lightbox}>
         <h4 className={modules.Header}>{props.header}</h4>
         {props.content}

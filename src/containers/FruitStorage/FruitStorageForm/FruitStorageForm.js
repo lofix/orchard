@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from '../../../axios-instance';
+import { connect } from 'react-redux';
+import * as actions from '../../../store/actions/index';
 
 import Auxi from '../../../hoc/Auxi/Auxi';
 
@@ -55,7 +57,8 @@ class FruitStorageForm extends Component {
     number: null,
     weight: null,
     variety: '',
-    quality: null
+    quality: null,
+    sortingDate: ''
   }
 
   addNewPallet = (e) => {
@@ -65,9 +68,10 @@ class FruitStorageForm extends Component {
       number: this.state.number,
       weight: this.state.weight,
       variety: this.state.variety,
-      quality: this.state.quality
+      quality: this.state.quality,
+      sortingDate: this.state.sortingDate
     }
-    axios.post('/fruit-storage/data.json', palletInfo);
+    this.props.onAddNewPallet(palletInfo);
   }
 
   inputChangeHandler = (e) => {
@@ -95,4 +99,15 @@ class FruitStorageForm extends Component {
   }
 }
 
-export default FruitStorageForm;
+// const mapStateToProps = state => {
+//   return {
+
+//   }
+// }
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddNewPallet: (itemData) => dispatch(actions.addNewPalletSuccess(itemData))
+  }
+}
+export default connect(null, mapDispatchToProps)(FruitStorageForm);
