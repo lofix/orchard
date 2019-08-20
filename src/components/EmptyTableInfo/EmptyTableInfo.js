@@ -15,7 +15,8 @@ const emptyTableInfo = (props) => {
           btnType="Round"
           colorSet="WhiteGreen"
           className={modules.Button}
-          />
+          clicked={props.addNewItem}
+        />
       </div>
 
     </div>

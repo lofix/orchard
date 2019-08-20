@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+
 import EmptyTableInfo from '../../components/EmptyTableInfo/EmptyTableInfo';
+import FruitStorageForm from './FruitStorageForm/FruitStorageForm';
+import Lightbox from '../../components/UI/Lightbox/Lightbox';
 
 import modules from './FruitStorage.module.css';
 
@@ -12,11 +15,16 @@ class FruitStorage extends Component {
         secondaryTitle: "Click below to add a new pallet!"
       }
     },
-    data: null
+    data: null,
+    addingNewItem: false
   }
 
   prepareTableBody() {
     return <tbody><tr><td>TABLE</td></tr></tbody>;
+  }
+
+  addNewItemHandler = () => {
+    this.setState({addingNewItem:true});
   }
 
   render() {
@@ -35,7 +43,9 @@ class FruitStorage extends Component {
         {!this.state.data ? 
           <EmptyTableInfo 
             title={this.state.config.noData.title}
-            secondaryTitle={this.state.config.noData.secondaryTitle} /> : null}
+            secondaryTitle={this.state.config.noData.secondaryTitle}
+            addNewItem={this.addNewItemHandler}/> : null}
+        {this.state.addingNewItem ? <Lightbox header={"Fill the form and add a new pallet!"} content={<FruitStorageForm />}/> : null}
       </div>
     )
   }
