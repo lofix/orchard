@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Button from '../UI/Button/Button';
-import modules from './EmptyTableInfo.module.css';
+import modules from './TableInfo.module.css';
 
-const emptyTableInfo = (props) => {
+const tableInfo = (props) => {
   return (
     <div className={modules.Information}>
       <h3 className={modules.Title}>{props.title}</h3>
@@ -23,4 +23,4 @@ const emptyTableInfo = (props) => {
   );
 }
 
-export default emptyTableInfo;
+export default tableInfo;

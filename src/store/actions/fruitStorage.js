@@ -41,8 +41,7 @@ export const addNewPalletSuccess = (itemData) => {
     axios.post('/fruit-storage/data.json', itemData)
       .then(response => {
         dispatch(addNewItemFinished());
-        // Do zaimplementowania -> Po dodaniu palety pobierz dane z serwera i wyświetl w tabeli.
-        // dispatch(fetchPallets())
+        dispatch(fetchPallets())
       })
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import EmptyTableInfo from '../../components/EmptyTableInfo/EmptyTableInfo';
+import TableInfo from '../../components/TableInfo/TableInfo';
 import FruitStorageForm from './FruitStorageForm/FruitStorageForm';
 import Lightbox from '../../components/UI/Lightbox/Lightbox';
 
@@ -24,7 +24,7 @@ class FruitStorage extends Component {
       <tbody>
         {pallets.map(pallet => {
           return (
-            <tr className={modules.Row}>
+            <tr key={pallet.id} className={modules.Row}>
               {Object.keys(pallet).map(info => {
                 return (<td className={modules.Cell}>{pallet[info]}</td>)
               })}
@@ -39,7 +39,9 @@ class FruitStorage extends Component {
   }
 
   render() {
-    const tableHeaders = ['Date', 'Pallet No', 'Variety','Weight', 'ID', 'Sorting Date'];
+    const tableHeaders = ['Date', 'Pallet No', 'Sorting Date', 'Variety','Weight', 'ID' ];
+    const isTableEmpty = !this.props.pallets.length;
+
     return (
       <div className={modules.TableContainer}>
         <table className={modules.Table}>
@@ -52,11 +54,12 @@ class FruitStorage extends Component {
           </thead>
             {this.props.pallets.length ? this.prepareTableBody() : null}
         </table>
-        {!this.props.pallets.length ? 
-          <EmptyTableInfo 
-            title="Currently there are no blueberries in your coldroom."
-            secondaryTitle="Click below to add a new pallet!"
-            addNewItem={this.addNewItemHandler}/> : null}
+        <TableInfo
+          isEmpty={isTableEmpty}
+          title={isTableEmpty ? "Currently there are no blueberries in your coldroom." : "In order to add more pallets"}
+          secondaryTitle={isTableEmpty ? "Click below to add a new pallet!" : "Click the button below!"}
+          addNewItem={this.addNewItemHandler}
+        />
         {this.props.addingNewItem ? <Lightbox clicked={this.onBackdropClick} header={"Fill the form and add a new pallet!"} content={<FruitStorageForm />}/> : null}
       </div>
     )
