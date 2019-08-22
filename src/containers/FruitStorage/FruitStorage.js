@@ -31,7 +31,7 @@ class FruitStorage extends Component {
               {Object.keys(pallet).map(info => {
                 return (<td className={modules.Cell}>{pallet[info]}</td>)
               })}
-              <td className={modules.Cell}><Button copy="Edit" size="Small" btnType="Rectangular" colorSet="WhiteGreen"/></td>
+              <td className={modules.Cell}><Button id={pallet.id} clicked={(e) => this.props.editItemInit(e)} copy="Edit" size="Small" btnType="Rectangular" colorSet="WhiteGreen"/></td>
               <td className={modules.Cell}><Button id={pallet.id} clicked={(e) => this.props.deleteItem(e)} copy="Delete" size="Small" btnType="Rectangular" colorSet="WhiteGreen"/></td>
             </tr>
           )
@@ -65,6 +65,7 @@ class FruitStorage extends Component {
         addNewItem={this.addNewItemHandler}
       />
       {this.props.addingNewItem ? <Lightbox clicked={this.onBackdropClick} header={"Fill the form and add a new pallet!"} content={<FruitStorageForm />}/> : null}
+      {this.props.editingInProgress ? <Lightbox clicked={this.onBackdropClick} header={"Edit the pallet data"} content={<FruitStorageForm editedItemId={this.props.editedItemId}/>} /> : null }
     </div>;
 
     return (
@@ -77,7 +78,9 @@ const mapStateToProps = state => {
   return {
     pallets: state.fruitStorage.pallets,
     addingNewItem: state.fruitStorage.addingNewItem,
-    loading: state.fruitStorage.loading     
+    loading: state.fruitStorage.loading,
+    editingInProgress: state.fruitStorage.editingInProgress,
+    editedItemId: state.fruitStorage.editedItemId   
   }
 };
 
@@ -86,7 +89,8 @@ const mapDispatchToProps = dispatch => {
     onAddNewItemInit: () => dispatch(actions.addNewItemInit()),
     onAddNewItemFinished: () => dispatch(actions.addNewItemFinished()),
     fetchPallets: () => dispatch(actions.fetchPallets()),
-    deleteItem: (e) => dispatch(actions.deleteItem(e)) 
+    deleteItem: (e) => dispatch(actions.deleteItem(e)),
+    editItemInit: (e) => dispatch(actions.editItemInit(e))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FruitStorage);

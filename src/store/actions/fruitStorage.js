@@ -43,12 +43,28 @@ export const fetchPalletsSuccess = (pallets) => {
   }
 }
 
+export const editItemFinished = () => {
+  return {
+    type: actionTypes.EDIT_ITEM_FINISHED
+  }
+}
+
 export const addNewPalletSuccess = (itemData) => {
   return dispatch => {
     axios.post('/fruit-storage/data.json', itemData)
       .then(response => {
         dispatch(addNewItemFinished());
         dispatch(fetchPallets())
+      })
+  }
+}
+
+export const editPalletSuccess = (itemData, editedItemId) => {
+  return dispatch => {
+    axios.put(`/fruit-storage/data/${editedItemId}.json`, itemData)
+      .then(response => {
+        dispatch(editItemFinished());
+        dispatch(fetchPallets());
       })
   }
 }
@@ -68,4 +84,11 @@ export const deleteItem = (e) => {
         dispatch(fetchPallets());
       })
   } 
+}
+
+export const editItemInit = (e) => {
+  return {
+    type: actionTypes.EDIT_ITEM_INIT,
+    editedItemId: e.target.id
+  }
 }

@@ -5,6 +5,8 @@ const initialState = {
   pallets: [],
   addingNewItem: false,
   loading: false,
+  editingInProgress: false,
+  editedItemId: null,
   palletInfo: {
     arrivalDate: '-',
     number: '',
@@ -38,6 +40,20 @@ const deleteItemInit = (state, action) => {
   return updateObject(state, {loading: true})
 }
 
+const editItemInit = (state, action) => {
+  return updateObject(state, {
+    editingInProgress: true,
+    editedItemId: action.editedItemId
+  })
+}
+
+const editItemFinished = (state, action) => {
+  return updateObject(state, {
+    editingInProgress: false,
+    editedItemId: null
+  })
+}
+
 const reducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.ADD_NEW_ITEM_INIT: return addNewItemInit(state, action)
@@ -45,6 +61,8 @@ const reducer = (state = initialState, action) => {
     case actionTypes.FETCH_PALLETS_INIT: return fetchPalletsInit(state, action)
     case actionTypes.FETCH_PALLETS_SUCCESS: return fetchPalletsSuccess(state, action)
     case actionTypes.DELETE_ITEM_INIT: return deleteItemInit(state, action)
+    case actionTypes.EDIT_ITEM_INIT: return editItemInit(state, action)
+    case actionTypes.EDIT_ITEM_FINISHED: return editItemFinished(state, action)
     default: return state;
   }
 }

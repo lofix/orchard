@@ -4,5 +4,7 @@ export {
   addNewPalletSuccess,
   fetchPalletsInit,
   fetchPallets,
-  deleteItem
+  deleteItem,
+  editItemInit,
+  editPalletSuccess
 } from './fruitStorage';

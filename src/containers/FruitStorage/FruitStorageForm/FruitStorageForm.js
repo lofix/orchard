@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from '../../../axios-instance';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
 import { updateObject, checkValidation } from '../../../shared/utility';
@@ -74,7 +73,7 @@ class FruitStorageForm extends Component {
     arrivalDate: null,
     number: null,
     weight: null,
-    variety: '',
+    variety: 'Duke',
     quality: null,
     sortingDate: '-'
   }
@@ -90,6 +89,19 @@ class FruitStorageForm extends Component {
       quality: this.state.quality
     }
     this.props.onAddNewPallet(palletInfo);
+  }
+
+  editPallet = (e) => {
+    const editedItemId = this.props.editedItemId;
+    const palletInfo = {
+      arrivalDate: this.state.inputs.arrivalDate.value,
+      number: this.state.inputs.number.value,
+      variety: this.state.variety,
+      weight: this.state.inputs.weight.value,
+      sortingDate: this.state.sortingDate,
+      quality: this.state.quality
+    }
+    this.props.onEditItem(palletInfo, editedItemId);
   }
 
   inputChangeHandler = (e) => {
@@ -134,15 +146,22 @@ class FruitStorageForm extends Component {
           );
         })}
         <Select options={this.state.varieties} id="variety" onChange={(e) => this.selectChangeHandler(e)} />
-        <Button size="Large" disabled={!this.state.isFormValid} clicked={this.addNewPallet} btnType="Rectangular" colorSet="WhiteGreen" copy="Submit" />
+        <Button size="Large" disabled={!this.state.isFormValid} clicked={this.props.editedItemId ? this.editPallet : this.addNewPallet} btnType="Rectangular" colorSet="WhiteGreen" copy="Submit" />
       </form>
     )
   }
 }
+const mapStateToProps = state => {
+  return {
+    editedItemId: state.fruitStorage.editedItemId
+  }
+};
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddNewPallet: (itemData) => dispatch(actions.addNewPalletSuccess(itemData))
+    onAddNewPallet: (itemData) => dispatch(actions.addNewPalletSuccess(itemData)),
+    onEditItem: (itemData, editedItemId) => dispatch(actions.editPalletSuccess(itemData, editedItemId))
   }
-}
-export default connect(null, mapDispatchToProps)(FruitStorageForm);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FruitStorageForm);
