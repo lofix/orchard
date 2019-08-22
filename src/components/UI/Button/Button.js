@@ -5,7 +5,8 @@ import modules from './Button.module.css';
 
 const button = (props) => {
   const button = <button 
-                    className={[modules.Button, modules[props.btnType], modules[props.colorSet]].join( ' ')}
+                    disabled={props.disabled}
+                    className={[modules.Button, modules[props.btnType], modules[props.colorSet], modules[props.size]].join( ' ')}
                     onClick={props.clicked}>
                     {props.withIcon ? <i className={props.iconClasses}></i> : null}
                     {props.copy}

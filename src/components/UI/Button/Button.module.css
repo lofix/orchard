@@ -1,8 +1,15 @@
 .Button {
   box-shadow: 2px 3px 1px 0px rgba(0,0,0,0.75);
   cursor: pointer;
-  margin-right: 16px;
   font-size: 16px;
+}
+
+.Button:disabled {
+  box-shadow: none;
+  background-color: #d3ddd7;
+  border: 1px solid #31121a;
+  color: #31121a;
+  cursor: default;
 }
 
 .Round {
@@ -14,8 +21,7 @@
 .Rectangular {
   border-radius: 4px;
   padding: 4px;
-  height: 50px;
-  width: 120px;
+
 }
 
 .WhiteGreen {
@@ -28,4 +34,18 @@
   background-color: #004225;
   color: white;
   border: 2px solid white;
+}
+
+.Rectangular.Small {
+  height: 30px;
+  width: 80px;
+}
+
+.Rectangular.Medium {
+
+}
+
+.Rectangular.Large {
+  height: 50px;
+  width: 120px;
 }

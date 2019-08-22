@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from '../../../axios-instance';
 import { connect } from 'react-redux';
 import * as actions from '../../../store/actions/index';
+import { updateObject, checkValidation } from '../../../shared/utility';
 
 import Auxi from '../../../hoc/Auxi/Auxi';
 
@@ -14,67 +15,107 @@ import modules from './FruitStorageForm.module.css';
 
 class FruitStorageForm extends Component {
   state = {
-    formConfig: {
-      inputs: {
-        arrivalDate: {
-          id: "arrivalDate",
-          placeholder: "When this pallet arrived?",
-          label: "Date:",
-          type: "date"
+    inputs: {
+      arrivalDate: {
+        id: "arrivalDate",
+        placeholder: "When this pallet arrived?",
+        label: "Date:",
+        type: "date",
+        validation: {
+          required: true
         },
-        number: {
-          id: "number",
-          placeholder: "What is the number of this pallet?",
-          label: "Pallet Number:",
-          type: "number"
-        },
-        weight: {
-          id: "weight",
-          placeholder: "What is the weight of this pallet?",
-          label: "Weight:",
-          type: "text"
-        },
+        valid: false,
+        value: '',
+        touched: false
       },
-      varieties: {
-        Duke: {
-          value: "Duke"
+      number: {
+        id: "number",
+        placeholder: "What is the number of this pallet?",
+        label: "Pallet Number:",
+        type: "number",
+        validation: {
+          required: true
         },
-        Elliot: {
-          value: "Elliot"
+        valid: false,
+        value: '',
+        touched: false
+      },
+      weight: {
+        id: "weight",
+        placeholder: "What is the weight of this pallet?",
+        label: "Weight:",
+        type: "text",
+        validation: {
+          required: true
         },
-        Nelson: {
-          value: "Nelson"
-        },
-        Bluecrop: {
-          value: "Bluecrop"
-        },
-        Chandler: {
-          value: "Chandler"
-        },
-      }
+        valid: false,
+        value: '',
+        touched: false
+      },
     },
+    varieties: {
+      Duke: {
+        value: "Duke"
+      },
+      Elliot: {
+        value: "Elliot"
+      },
+      Nelson: {
+        value: "Nelson"
+      },
+      Bluecrop: {
+        value: "Bluecrop"
+      },
+      Chandler: {
+        value: "Chandler"
+      },
+    },
+    isFormValid: false,
     arrivalDate: null,
     number: null,
     weight: null,
     variety: '',
     quality: null,
-    sortingDate: ''
+    sortingDate: '-'
   }
 
   addNewPallet = (e) => {
     e.preventDefault();
     const palletInfo = {
-      arrivalDate: this.state.arrivalDate,
-      number: this.state.number,
-      weight: this.state.weight,
+      arrivalDate: this.state.inputs.arrivalDate.value,
+      number: this.state.inputs.number.value,
       variety: this.state.variety,
-      quality: this.state.quality,
-      sortingDate: this.state.sortingDate
+      weight: this.state.inputs.weight.value,
+      sortingDate: this.state.sortingDate,
+      quality: this.state.quality
     }
     this.props.onAddNewPallet(palletInfo);
   }
 
   inputChangeHandler = (e) => {
+    const name = e.target.id;
+    const value = e.target.value;
+    const element = this.state.inputs[name];
+    const updatedElement = updateObject(element, {
+      value,
+      touched: true,
+      valid: checkValidation(value, element.validation)
+    });
+    const updatedForm = updateObject(this.state.inputs, {
+      [name]: updatedElement
+    });
+
+    let isFormValid = true;
+    for ( let id in updatedForm ) {
+      isFormValid = updatedForm[id].valid && isFormValid;
+    }
+    this.setState({
+      inputs: updatedForm,
+      isFormValid 
+    })
+  }
+
+  selectChangeHandler = (e) => {
     const name = e.target.id;
     const value = e.target.value;
     this.setState({[name]: value})
@@ -83,8 +124,8 @@ class FruitStorageForm extends Component {
   render() {
     return (
       <form className={modules.Form}>
-        {Object.keys(this.state.formConfig.inputs).map(el => {
-          const element = this.state.formConfig.inputs[el]
+        {Object.keys(this.state.inputs).map(el => {
+          const element = this.state.inputs[el]
           return (
             <Auxi key={element.id}>
               <Label key={element.label} id={element.id} label={element.label}/>
@@ -92,18 +133,12 @@ class FruitStorageForm extends Component {
             </Auxi>
           );
         })}
-        <Select options={this.state.formConfig.varieties} id="variety" onChange={(e) => this.inputChangeHandler(e)} />
-        <Button clicked={this.addNewPallet} btnType="Rectangular" colorSet="WhiteGreen" copy="Submit" />
+        <Select options={this.state.varieties} id="variety" onChange={(e) => this.selectChangeHandler(e)} />
+        <Button size="Large" disabled={!this.state.isFormValid} clicked={this.addNewPallet} btnType="Rectangular" colorSet="WhiteGreen" copy="Submit" />
       </form>
     )
   }
 }
-
-// const mapStateToProps = state => {
-//   return {
-
-//   }
-// }
 
 const mapDispatchToProps = dispatch => {
   return {

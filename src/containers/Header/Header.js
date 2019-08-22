@@ -14,6 +14,7 @@ class Header extends Component {
           copy="LOGIN"
           btnType="Rectangular"
           colorSet="WhiteGreen"
+          size="Large"
         />
       </header>
     )
