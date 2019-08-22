@@ -3,5 +3,6 @@ export {
   addNewItemFinished,
   addNewPalletSuccess,
   fetchPalletsInit,
-  fetchPallets
+  fetchPallets,
+  deleteItem
 } from './fruitStorage';

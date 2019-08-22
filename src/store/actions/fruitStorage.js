@@ -52,3 +52,20 @@ export const addNewPalletSuccess = (itemData) => {
       })
   }
 }
+
+export const deleteItemInit = () => {
+  return {
+    type: actionTypes.DELETE_ITEM_INIT
+  }
+}
+
+export const deleteItem = (e) => {
+  const itemId = e.target.id;
+  return dispatch => {
+    dispatch(deleteItemInit());
+    axios.delete(`/fruit-storage/data/${itemId}.json`)
+      .then(response => {
+        dispatch(fetchPallets());
+      })
+  } 
+}

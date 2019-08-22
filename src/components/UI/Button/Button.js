@@ -7,7 +7,8 @@ const button = (props) => {
   const button = <button 
                     disabled={props.disabled}
                     className={[modules.Button, modules[props.btnType], modules[props.colorSet], modules[props.size]].join( ' ')}
-                    onClick={props.clicked}>
+                    onClick={props.clicked}
+                    id={props.id}>
                     {props.withIcon ? <i className={props.iconClasses}></i> : null}
                     {props.copy}
                   </button>;

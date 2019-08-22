@@ -32,7 +32,7 @@ class FruitStorage extends Component {
                 return (<td className={modules.Cell}>{pallet[info]}</td>)
               })}
               <td className={modules.Cell}><Button copy="Edit" size="Small" btnType="Rectangular" colorSet="WhiteGreen"/></td>
-              <td className={modules.Cell}><Button copy="Delete" size="Small" btnType="Rectangular" colorSet="WhiteGreen"/></td>
+              <td className={modules.Cell}><Button id={pallet.id} clicked={(e) => this.props.deleteItem(e)} copy="Delete" size="Small" btnType="Rectangular" colorSet="WhiteGreen"/></td>
             </tr>
           )
         })}
@@ -85,8 +85,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onAddNewItemInit: () => dispatch(actions.addNewItemInit()),
     onAddNewItemFinished: () => dispatch(actions.addNewItemFinished()),
-    fetchPalletsInit: () => dispatch(actions.fetchPalletsInit()),
-    fetchPallets: () => dispatch(actions.fetchPallets())
+    fetchPallets: () => dispatch(actions.fetchPallets()),
+    deleteItem: (e) => dispatch(actions.deleteItem(e)) 
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FruitStorage);

@@ -26,11 +26,16 @@ const addNewItemFinished = (state, action) => {
 const fetchPalletsInit = (state, action) => {
   return updateObject(state, {loading: true})
 }
+
 const fetchPalletsSuccess = (state, action) => {
   return updateObject(state, {
     pallets: action.pallets,
     loading: false
   })
+}
+
+const deleteItemInit = (state, action) => {
+  return updateObject(state, {loading: true})
 }
 
 const reducer = (state = initialState, action) => {
@@ -39,6 +44,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.ADD_NEW_ITEM_FINISHED: return addNewItemFinished(state, action)
     case actionTypes.FETCH_PALLETS_INIT: return fetchPalletsInit(state, action)
     case actionTypes.FETCH_PALLETS_SUCCESS: return fetchPalletsSuccess(state, action)
+    case actionTypes.DELETE_ITEM_INIT: return deleteItemInit(state, action)
     default: return state;
   }
 }
