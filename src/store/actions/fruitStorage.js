@@ -13,8 +13,15 @@ export const addNewItemFinished = () => {
   }
 }
 
+export const fetchPalletsInit = () => {
+  return {
+    type: actionTypes.FETCH_PALLETS_INIT 
+  }
+}
+
 export const fetchPallets = () => {
   return dispatch => {
+    dispatch(fetchPalletsInit());
     axios.get('/fruit-storage/data.json')
       .then(response => {
         const fetchedPallets = [];
@@ -24,7 +31,7 @@ export const fetchPallets = () => {
             id: key
           })
         }
-        dispatch(fetchPalletsSuccess(fetchedPallets))
+        dispatch(fetchPalletsSuccess(fetchedPallets));
       })
   }
 }

@@ -4,6 +4,7 @@ import { updateObject } from '../../shared/utility';
 const initialState = {
   pallets: [],
   addingNewItem: false,
+  loading: false,
   palletInfo: {
     arrivalDate: '-',
     number: '',
@@ -22,14 +23,21 @@ const addNewItemFinished = (state, action) => {
   return updateObject(state, {addingNewItem: false})
 }
 
+const fetchPalletsInit = (state, action) => {
+  return updateObject(state, {loading: true})
+}
 const fetchPalletsSuccess = (state, action) => {
-  return updateObject(state, {pallets: action.pallets})
+  return updateObject(state, {
+    pallets: action.pallets,
+    loading: false
+  })
 }
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.ADD_NEW_ITEM_INIT: return addNewItemInit(state, action)
     case actionTypes.ADD_NEW_ITEM_FINISHED: return addNewItemFinished(state, action)
+    case actionTypes.FETCH_PALLETS_INIT: return fetchPalletsInit(state, action)
     case actionTypes.FETCH_PALLETS_SUCCESS: return fetchPalletsSuccess(state, action)
     default: return state;
   }

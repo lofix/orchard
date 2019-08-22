@@ -4,3 +4,12 @@ export const updateObject = (oldObj, updatedProps) => {
     ...updatedProps
   };
 };
+
+export const checkValidation = (value, rule) => {
+  let isValid = true;
+  if (rule.required) {
+    isValid = value.trim() !== '' && isValid;
+  }
+
+  return isValid;
+}
