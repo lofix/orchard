@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import Header from '../Header/Header';
 import FruitStorage from '../FruitStorage/FruitStorage';
+import Sorting from '../Sorting/Sorting';
 
 import Home from '../../components/Home/Home';
 import modules from './App.module.css';
@@ -16,7 +17,7 @@ class App extends Component {
           <Switch>
             <Route path="/packaging" component={Home} />
             <Route path="/shipments" component={Home} />
-            <Route path="/sorting" component={Home} />
+            <Route path="/sorting" component={Sorting} />
             <Route path="/fruit-storage" component={FruitStorage} />
             <Route exact path="/" component={Home} />
           </Switch>

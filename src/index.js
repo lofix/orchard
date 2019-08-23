@@ -9,11 +9,13 @@ import './index.css';
 import App from './containers/App/App';
 import * as serviceWorker from './serviceWorker';
 import fruitStorageReducer from './store/reducers/fruitStorage';
+import sortingReducer from './store/reducers/sorting';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
 const rootReducer = combineReducers({
-  fruitStorage: fruitStorageReducer
+  fruitStorage: fruitStorageReducer,
+  sorting: sortingReducer
 });
 
 const store = createStore(rootReducer, composeEnhancers(

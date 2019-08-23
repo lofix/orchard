@@ -8,3 +8,9 @@ export {
   editItemInit,
   editPalletSuccess
 } from './fruitStorage';
+
+export {
+  fetchSortingData,
+  onAddNewSortingInit,
+  onAddSortingFinished
+} from './sorting';

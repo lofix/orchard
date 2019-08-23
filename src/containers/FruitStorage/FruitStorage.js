@@ -56,7 +56,7 @@ class FruitStorage extends Component {
             })}
           </tr>
         </thead>
-          {this.props.pallets.length ? this.prepareTableBody() : null}
+          {!isTableEmpty ? this.prepareTableBody() : null}
       </table>
       <TableInfo
         isEmpty={isTableEmpty}

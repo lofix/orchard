@@ -1,0 +1,45 @@
+.TableContainer {
+  width: 100%;
+  margin: 32px;
+  border: 2px solid #004225;
+  background-color: white;
+}
+
+.Table {
+  padding-top: 32px;
+  width: 90%;
+  background-color: #fff;
+  border-collapse: collapse;
+  margin: 24px auto;
+}
+
+.Table thead {
+  border-bottom: 1px solid #004225;
+}
+
+.Row {
+  border: 1px solid #004225;
+}
+
+.Header {
+  box-sizing: border-box;
+  vertical-align: middle;
+  text-align: center;
+  padding: 8px 0;
+  background-color:#315f44;
+  color: white;
+  box-sizing: border-box;
+  border: 1px solid black;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+.Cell {
+  box-sizing: border-box;
+  vertical-align: middle;
+  text-align: center;
+  padding: 8px 0;
+  color: #004225;
+  box-sizing: border-box;
+  border: 1px solid #004225;
+}
