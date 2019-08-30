@@ -4,7 +4,7 @@ import { updateObject } from '../../shared/utility';
 const initialState = {
   loading: false,
   data: [],
-  addingInProgress: false
+  selectingPallets: false
 }
 
 const fetchSortingDataInit = (state, action) => {
@@ -20,12 +20,12 @@ const fetchSortingDataSuccess = (state, action) => {
 
 const addNewSortingInit = (state, action) => {
   return updateObject(state,{
-    addingInProgress: true
+    selectingPallets: true
   })
 }
 
 const addSortingFinished = (state, action) => {
-  return updateObject(state, {addingInProgress: false})
+  return updateObject(state, {selectingPallets: false})
 }
 
 const reducer = (state = initialState, action) => {

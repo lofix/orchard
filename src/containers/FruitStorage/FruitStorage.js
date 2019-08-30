@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 
 import TableInfo from '../../components/TableInfo/TableInfo';
 import FruitStorageForm from './FruitStorageForm/FruitStorageForm';
+import Table from '../Table/Table';
 
 import Lightbox from '../../components/UI/Lightbox/Lightbox';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import Button from '../../components/UI/Button/Button';
 
 import * as actions from '../../store/actions/index';
 
@@ -21,24 +21,6 @@ class FruitStorage extends Component {
     this.props.onAddNewItemFinished();
   }
 
-  prepareTableBody() {
-    const pallets = this.props.pallets;
-    return (
-      <tbody>
-        {pallets.map(pallet => {
-          return (
-            <tr key={pallet.id} className={modules.Row}>
-              {Object.keys(pallet).map(info => {
-                return (<td className={modules.Cell}>{pallet[info]}</td>)
-              })}
-              <td className={modules.Cell}><Button id={pallet.id} clicked={(e) => this.props.editItemInit(e)} copy="Edit" size="Small" btnType="Rectangular" colorSet="WhiteGreen"/></td>
-              <td className={modules.Cell}><Button id={pallet.id} clicked={(e) => this.props.deleteItem(e)} copy="Delete" size="Small" btnType="Rectangular" colorSet="WhiteGreen"/></td>
-            </tr>
-          )
-        })}
-      </tbody>);
-  }
-
   addNewItemHandler = () => {
     this.props.onAddNewItemInit();
   }
@@ -48,16 +30,11 @@ class FruitStorage extends Component {
     const isTableEmpty = !this.props.pallets.length;
     const content =  
     <div className={modules.TableContainer}>
-      <table className={modules.Table}>
-        <thead> 
-          <tr className={modules.Row}>
-            {tableHeaders.map(headerEl => {
-              return <th className={modules.Header} key={headerEl}>{headerEl}</th>;
-            })}
-          </tr>
-        </thead>
-          {!isTableEmpty ? this.prepareTableBody() : null}
-      </table>
+      <Table 
+        tableHeaders={tableHeaders}
+        isTableEmpty={isTableEmpty}
+        data={this.props.pallets}
+      />
       <TableInfo
         isEmpty={isTableEmpty}
         title={isTableEmpty ? "Currently there are no blueberries in your coldroom." : "In order to add more pallets"}
@@ -93,4 +70,5 @@ const mapDispatchToProps = dispatch => {
     editItemInit: (e) => dispatch(actions.editItemInit(e))
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(FruitStorage);

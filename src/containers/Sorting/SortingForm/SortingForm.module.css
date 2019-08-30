@@ -1,0 +1,14 @@
+.Form {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 8px auto;
+}
+
+.Form input::placeholder {
+  padding-left: 8px;
+}
+
+.Form button {
+  display: block;
+  margin: 0 auto 24px auto;
+}

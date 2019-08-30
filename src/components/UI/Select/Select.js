@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import modules from './Select.module.css';
 
@@ -13,6 +14,12 @@ const select = (props) => {
           })}
     </select>
   )
+}
+
+select.propTypes = {
+  id: PropTypes.string,
+  onChange: PropTypes.func,
+  options: PropTypes.object
 }
 
 export default select;
