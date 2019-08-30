@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../UI/Button/Button';
 import modules from './TableInfo.module.css';
@@ -21,6 +22,12 @@ const tableInfo = (props) => {
 
     </div>
   );
+}
+
+tableInfo.propTypes = {
+  isEmpty: PropTypes.bool,
+  title: PropTypes.string,
+  secondaryTitle: PropTypes.string
 }
 
 export default tableInfo;

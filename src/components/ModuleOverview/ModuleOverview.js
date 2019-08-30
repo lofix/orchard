@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Button from '../UI/Button/Button';
 
@@ -22,5 +23,9 @@ const moduleOverview = (props) => {
     </div>
   )
 };
-
+moduleOverview.propTypes = {
+  description: PropTypes.string,
+  path: PropTypes.string,
+  title: PropTypes.string
+}
 export default moduleOverview;

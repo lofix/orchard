@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import modules from './Lightbox.module.css'
 
 import Auxi from '../../../hoc/Auxi/Auxi'
@@ -16,6 +18,9 @@ const lightbox = (props) => {
   )
 };
 
- 
+ lightbox.propTypes = {
+   clicked: PropTypes.func,
+   header: PropTypes.string
+ }
 
 export default lightbox;

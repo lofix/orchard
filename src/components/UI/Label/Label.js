@@ -1,5 +1,7 @@
 import React from 'react';
 import modules from './Label.module.css';
+import PropTypes from 'prop-types';
+
 
 const label = (props) => {
   return (
@@ -7,4 +9,8 @@ const label = (props) => {
   )
 };
 
+label.propTypes = {
+  id: PropTypes.string,
+  label: PropTypes.string
+}
 export default label;
