@@ -31,7 +31,32 @@ export const fetchSortingData = () => {
   }
 }
 
-export const onAddNewSortingInit = () => {
+export const fetchAvailablePalletsSuccess = (availablePallets) => {
+  return {
+    type: actionTypes.FETCH_AVAILABLE_PALLETS_SUCCESS,
+    availablePallets
+  }
+}
+
+export const onAddNewSorting = () => {
+  return dispatch => {
+    dispatch(addNewSortingInit());
+    axios.get('/fruit-storage/data.json')
+      .then(response => {
+        const pallets =[]
+        for (let key in response.data) {
+            pallets.push({
+            ...response.data[key],
+            id: key
+          })
+        }
+        const availablePallets = pallets.filter(pallet => pallet.sortingDate === '-');
+        dispatch(fetchAvailablePalletsSuccess(availablePallets));
+      })
+  }
+}
+
+export const addNewSortingInit = () => {
   return { 
     type: actionTypes.ADD_NEW_SORTING_INIT
   }

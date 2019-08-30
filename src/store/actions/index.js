@@ -6,11 +6,12 @@ export {
   fetchPallets,
   deleteItem,
   editItemInit,
+  editItemFinished,
   editPalletSuccess
 } from './fruitStorage';
 
 export {
   fetchSortingData,
-  onAddNewSortingInit,
+  onAddNewSorting,
   onAddSortingFinished
 } from './sorting';

@@ -17,8 +17,12 @@ class FruitStorage extends Component {
     this.props.fetchPallets();
   }
 
-  onBackdropClick = () => {
+  onAddingBackdropClick = () => {
     this.props.onAddNewItemFinished();
+  }
+
+  onEditingBackdropClick = () => {
+    this.props.onEditItemFinished();
   }
 
   addNewItemHandler = () => {
@@ -34,6 +38,10 @@ class FruitStorage extends Component {
         tableHeaders={tableHeaders}
         isTableEmpty={isTableEmpty}
         data={this.props.pallets}
+        allowEditing
+        editItem={this.props.editItemInit}
+        allowDeleting
+        deleteItem={this.props.deleteItem}
       />
       <TableInfo
         isEmpty={isTableEmpty}
@@ -41,8 +49,8 @@ class FruitStorage extends Component {
         secondaryTitle={isTableEmpty ? "Click below to add a new pallet!" : "Click the button below!"}
         addNewItem={this.addNewItemHandler}
       />
-      {this.props.addingNewItem ? <Lightbox clicked={this.onBackdropClick} header={"Fill the form and add a new pallet!"} content={<FruitStorageForm />}/> : null}
-      {this.props.editingInProgress ? <Lightbox clicked={this.onBackdropClick} header={"Edit the pallet data"} content={<FruitStorageForm editedItemId={this.props.editedItemId}/>} /> : null }
+      {this.props.addingNewItem ? <Lightbox clicked={this.onAddingBackdropClick} header={"Fill the form and add a new pallet!"} content={<FruitStorageForm />}/> : null}
+      {this.props.editingInProgress ? <Lightbox clicked={this.onEditingBackdropClick} header={"Edit the pallet data"} content={<FruitStorageForm editedItemId={this.props.editedItemId}/>} /> : null }
     </div>;
 
     return (
@@ -64,6 +72,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onAddNewItemInit: () => dispatch(actions.addNewItemInit()),
+    onEditItemFinished: () => dispatch(actions.editItemFinished()), 
     onAddNewItemFinished: () => dispatch(actions.addNewItemFinished()),
     fetchPallets: () => dispatch(actions.fetchPallets()),
     deleteItem: (e) => dispatch(actions.deleteItem(e)),
